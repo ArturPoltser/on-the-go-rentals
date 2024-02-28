@@ -83,6 +83,18 @@ class Car(models.Model):
         ]
     )
     fuel_consumption = models.DecimalField(max_digits=2, decimal_places=1)
+    daily_cost = models.IntegerField(
+        validators=[
+            MinValueValidator(
+                limit_value=100,
+                message="We can't rent car with daily price less than 100$."
+            ),
+            MaxValueValidator(
+                limit_value=2000,
+                message="We can't rent car with daily price more than 2000$."
+            )
+        ]
+    )
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
     renter = models.ManyToManyField(Renter, related_name="cars")
 
