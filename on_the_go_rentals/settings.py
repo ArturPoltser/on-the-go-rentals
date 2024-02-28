@@ -101,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "user.Renter"
+AUTH_USER_MODEL = "rentals.Renter"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
