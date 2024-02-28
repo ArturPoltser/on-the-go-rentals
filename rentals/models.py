@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.validators import (
     RegexValidator,
     MinValueValidator,
@@ -96,7 +97,7 @@ class Car(models.Model):
         ]
     )
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
-    renter = models.ManyToManyField(Renter, related_name="cars")
+    renter = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="cars")
 
     def __str__(self):
         return self.model
