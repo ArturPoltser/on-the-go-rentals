@@ -97,7 +97,9 @@ class Car(models.Model):
         ]
     )
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
-    renter = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="cars")
+    available_to_rent = models.BooleanField(default=True)
+    renter = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    renters_history = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="cars")
 
     def __str__(self):
         return self.model
