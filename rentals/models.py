@@ -54,3 +54,37 @@ class Renter(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
+
+
+class Car(models.Model):
+    model = models.CharField(max_length=255)
+    year = models.IntegerField(
+        validators=[
+            MinValueValidator(
+                limit_value=2005,
+                message="Year should be from 2005 onwards."
+            ),
+            MaxValueValidator(
+                limit_value=2023,
+                message="Year should not exceed 2023."
+            )
+        ]
+    )
+    horsepower = models.IntegerField(
+        validators=[
+            MinValueValidator(
+                limit_value=100,
+                message="We can't rent car with less than 100 horsepowers."
+            ),
+            MaxValueValidator(
+                limit_value=800,
+                message="We can't rent car with more than 800 horsepowers."
+            )
+        ]
+    )
+    fuel_consumption = models.DecimalField(max_digits=2, decimal_places=1)
+    insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
+    renter = models.ManyToManyField(Renter, related_name="cars")
+
+    def __str__(self):
+        return self.model
