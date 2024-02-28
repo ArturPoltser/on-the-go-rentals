@@ -67,3 +67,22 @@ class CarUpdateView(LoginRequiredMixin, generic.UpdateView):
 class CarDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Car
     success_url = reverse_lazy("rentals:car-list")
+
+
+class RenterListView(LoginRequiredMixin, generic.ListView):
+    model = Renter
+    paginate_by = 5
+
+
+class RenterDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Renter
+    queryset = Renter.objects.prefetch_related("cars__insurance")
+
+
+class RenterCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Renter
+
+
+class RenterDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Renter
+    success_url = reverse_lazy("")
